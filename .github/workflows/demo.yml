@@ -1,0 +1,23 @@
+name: rani-ukamble-group/demo
+on:
+  push:
+  workflow_dispatch:
+concurrency:
+  group: "${{ github.ref }}"
+  cancel-in-progress: true
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    container:
+      image: alpine
+    timeout-minutes: 60
+    steps:
+    - uses: actions/checkout@v4.1.0
+      with:
+        fetch-depth: 20
+        lfs: true
+    - run: echo "building cars"
+    - run: mkdir build
+    - run: cd build
+    - run: touch car.txt
+    - run: echo "car built1" > car.txt
